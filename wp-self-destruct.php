@@ -30,6 +30,25 @@ function wpsd_init() {
 add_action( 'init', 'wpsd_init' );
 
 /**
+ * Add link to settings page.
+ *
+ * @since  1.0.0
+ */
+function wpsd_plugin_meta_links( $links, $file ) {
+	$plugin = plugin_basename( __FILE__ );
+
+	// create link
+	if ( $file == $plugin ) {
+		return array_merge(
+			$links,
+			array( '<a href="' . admin_url( 'tools.php?page=self-destruct' ) . '">Settings</a>' )
+		);
+	}
+	return $links;
+}
+add_filter( 'plugin_row_meta', 'wpsd_plugin_meta_links', 10, 2 );
+
+/**
  * Register submenu page.
  *
  * @since  1.0.0
