@@ -1,5 +1,5 @@
 # WP Self Destruct
 
-Wipe out your entire WordPress install with one click, including the database.
+A WordPress plugin to wipe out your entire site with one click, including the database.
 
-**Warning:** This is intended for local development only.
+**WARNING:** This is a tool intended for local development only!
