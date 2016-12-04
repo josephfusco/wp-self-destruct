@@ -65,7 +65,7 @@ function wpsd_register_menu_page() {
 }
 
 /**
- * Display a custom menu page
+ * Display a custom menu page.
  *
  * @since  1.0.0
  */
