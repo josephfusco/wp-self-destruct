@@ -155,8 +155,6 @@ function wpsd_action_javascript() {
 function wpsd_process() {
 	check_ajax_referer( 'wpsd_ajax_nonce', 'security' );
 
-	global $wpdb;
-
 	if ( isset( $_POST['generated_confirm_code'] ) && ! empty( $_POST['generated_confirm_code'] ) ) {
 		$generated_confirm_code = sanitize_text_field( wp_unslash( $_POST['generated_confirm_code'] ) );
 	}
