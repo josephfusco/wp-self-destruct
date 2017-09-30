@@ -5,7 +5,7 @@
  * Description:    Wipe out your entire site with one click, including the database.
  * Version:        1.0.0
  * Author:         Joseph Fusco
- * Author URI:     http://josephfus.co
+ * Author URI:     https://josephfus.co
  * License:        GPLv2 or later
  * Text Domain:    wp-self-destruct
  */
