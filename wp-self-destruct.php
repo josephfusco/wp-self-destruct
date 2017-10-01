@@ -78,7 +78,8 @@ function wpsd_submenu_page() {
 		<form id="wpsd" action="" method="post" enctype="multipart/form-data">
 			<p><strong style="color: tomato;">WARNING</strong> This will completely delete your site and database by running the following commands:</p>
 			<p><code><?php echo 'mysqladmin -u ' . DB_USER . ' -p ' . DB_PASSWORD . ' --force drop ' . DB_NAME; ?></code></p>
-			<p><code><?php echo 'rm -rf ' . ABSPATH; ?></code></p>
+            <p>The following directory will be deleted:</p>
+			<p><code><?php echo ABSPATH; ?></code></p>
 			<hr>
 			<p>
 				Enter the security code into the text box to confirm:
@@ -169,7 +170,7 @@ function wpsd_process() {
 		shell_exec( 'mysqladmin -u ' . DB_USER . ' -p ' . DB_PASSWORD . ' --force drop ' . DB_NAME );
 
 		// Delete site
-		exec( 'rm -rf ' . ABSPATH );
+		wpsd_rmdir(ABSPATH);
 
 	} else {
 		echo 'Confirmation code does not match';
@@ -186,4 +187,41 @@ add_action( 'wp_ajax_wpsd_action', 'wpsd_process' );
  */
 function wpsd_generate_code( $length = 5 ) {
 	return substr( md5( time() ), 1, $length );
+}
+
+/**
+ * Recursively delete a directory and all of it's contents.
+ *
+ * Equivalent of `rm -r` on command-line. Deletes all files with
+ * `rmdir()` and `unlink()`, an E_WARNING level error will be generated on failure.
+ *
+ * @since  1.0.0
+ *
+ * @param string $dir Absolute path to directory to delete.
+ * @return bool Return a boolean: true on success, false on failure.
+ *
+ */
+function wpsd_rmdir( $path ) {
+	if ( FALSE === file_exists( $path ) ) {
+		return FALSE;
+	}
+
+	/** @var SplFileInfo[] $files */
+	$files = new RecursiveIteratorIterator(
+		new RecursiveDirectoryIterator( $path, RecursiveDirectoryIterator::SKIP_DOTS ),
+		RecursiveIteratorIterator::CHILD_FIRST
+	);
+	foreach ( $files as $fileinfo ) {
+		if ( $fileinfo->isDir() ) {
+			if ( FALSE === rmdir( $fileinfo->getRealPath() ) ) {
+				return FALSE;
+			}
+		} else {
+			if ( FALSE === unlink( $fileinfo->getRealPath() ) ) {
+				return FALSE;
+			}
+		}
+	}
+
+	return rmdir( $path );
 }
