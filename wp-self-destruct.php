@@ -283,7 +283,7 @@ if ( class_exists( 'WP_CLI' ) ) {
 		if ( isset( $assoc_args['yes'] ) ) {
 
 			// Delete db & files.
-			WP_Self_Destruct::cmd_rmdb();
+			WP_CLI::runcommand( 'wp db drop --yes' );
 			WP_Self_Destruct::cmd_rmdir( ABSPATH );
 
 			// Print success message.
@@ -297,7 +297,7 @@ if ( class_exists( 'WP_CLI' ) ) {
 		WP_CLI::confirm( $confirmMsg );
 
 		// Delete db & files.
-		WP_Self_Destruct::cmd_rmdb();
+		WP_CLI::runcommand( 'wp db drop --yes' );
 		WP_Self_Destruct::cmd_rmdir( ABSPATH );
 
 		// Print success message.
