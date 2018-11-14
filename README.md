@@ -1,7 +1,7 @@
 # WP Self Destruct [![Clout](https://img.shields.io/badge/clout-100%25-green.svg)](https://img.shields.io/badge/clout-100%25-green.svg)
 A WordPress plugin to wipe out your entire site with one click, including the database.
 
-**WARNING:** This is a tool intended for local development only! Pease exercise caution.
+**WARNING:** This is a tool intended for local development only! Please exercise caution.
 
 ## Command Line
 
